@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="manifest" href="manifest.json" />
+	</head>
+	<body>
+		<!--
+			Ideally these elements aren't created until it's confirmed that the 
+			client supports video/camera, but for the sake of illustrating the 
+			elements involved, they are created with markup (not JavaScript)
+		-->
+		<div id="camera_wrapper">
+			<video id="video" width="480" height="480" autoplay></video>
+			<div id="lines">
+				<div class="line_warpper"><div class="line"></div></div>
+				<div class="line_warpper"><div class="line"></div></div>
+			</div>
+		</div>
+		<p style="margin-top: 100px;">
+			<label for="nop">No. of people:</label>
+			<input type="number" id="nop" />
+		</p>
+		<!--<button id="snap">Snap Photo</button>
+		<canvas id="canvas" width="640" height="480"></canvas>-->
+
+		<style>
+			#camera_wrapper {
+				display: inline-block;
+				position: relative;
+			}
+			#camera_wrapper video {
+				display: block;
+				border: 1px solid #000000;
+				border-radius: 50%;
+			}
+			#camera_wrapper #lines,
+			#camera_wrapper #lines .line_warpper {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 100%;
+			}
+			#camera_wrapper #lines {
+				border-radius: 50%;
+			}
+			.line {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				border-top: 1px dashed #FF0000;
+				height: 0;
+				width: 50%;
+			}
+		</style>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+		<script>
+			(function() {
+				// Grab elements, create settings, etc.
+				var video = document.getElementById('video');
+
+				// Get access to the camera!
+				if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+					// Not adding `{ audio: true }` since we only want video now
+					navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+						video.src = window.URL.createObjectURL(stream);
+						video.play();
+					});
+				}
+
+				// Elements for taking the snapshot
+				/*var canvas = document.getElementById('canvas');
+				var context = canvas.getContext('2d');
+				var video = document.getElementById('video');*/
+
+				// Trigger photo take
+				/*document.getElementById("snap").addEventListener("click", function() {
+					context.drawImage(video, 0, 0, 640, 480);
+				});*/
+			})();
+
+			$(document).ready(function() {
+				var lines = $('#camera_wrapper #lines');
+
+				$('#nop').change(function() {
+					var people = $(this).val(),
+						degree_per_line = 360 / people;
+
+					lines.html('');
+					if (degree_per_line !== 360 && degree_per_line > 0) {
+						for (var i = 0; i < people; i++) {
+							var degree = i * degree_per_line;
+
+							lines.append('<div class="line_warpper" style="transform: rotate(' + degree + 'deg); -moz-transform: rotate(' + degree + 'deg); -ms-transform: rotate(' + degree + 'deg); -o-transform: rotate(' + degree + 'deg); -webkit-transform: rotate(' + degree + 'deg);"><div class="line"></div></div>');
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

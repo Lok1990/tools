@@ -1,0 +1,13 @@
+{
+  　"short_name": "Cake Cutter",
+  　"name": "Cake Cutter",
+  　"icons": [{
+  　　"src":"images/icons.png",
+  　　"sizes": "192×192",
+  　　"type": "image/png"
+  　　}],
+  　"start_url": "http://127.0.0.1/",
+  　"background_color": "#323233",
+  　"theme_color": "#323233",
+  　"display": "standalone"
+  }
