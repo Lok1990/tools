@@ -1,0 +1,10 @@
+/* Main */
+html, body {
+  margin: 0;
+}
+
+/* Camera */
+#camera {
+  height: 100%;
+  width: 100%;
+}
