@@ -1,10 +1,33 @@
 /* Main */
-html, body {
+/* html, body {
   margin: 0;
-}
+} */
 
 /* Camera */
-#camera {
+#cake_cutting_cam_wrapper {
+  position: relative;
+  height: 375px;
+  width: 375px;
+}
+#cake_cutting_cam_wrapper .cutting-line {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
   height: 100%;
   width: 100%;
+}
+#cake_cutting_cam_wrapper .cutting-line::before {
+  display: inline-block;
+  margin-top: 50%;
+  border-top: 1px dashed #FF0000;
+  height: 0;
+  width: 50%;
+  content: "";
+}
+
+input, textarea {
+  font-size: 16px;
 }
